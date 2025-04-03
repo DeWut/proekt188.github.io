@@ -448,17 +448,6 @@
             </div>
         </section>
     </main>
-    <script>
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.querySelector('div').addEventListener('click', () => {
-                const content = item.querySelector('div:last-child');
-                const icon = item.querySelector('i');
-                content.style.display = content.style.display === 'block' ? 'none' : 'block';
-                icon.classList.toggle('fa-chevron-up');
-                icon.classList.toggle('fa-chevron-down');
-            });
-        });
-    </script>
      <footer id="contact">
     <div class="container">
       <h3>Методическое пособие по ИИ в образовании</h3>
@@ -471,5 +460,17 @@
       <p>Школа №188, Санкт-Петербург | © 2024 Все права защищены</p>
     </div>
   </footer>
+    <script>
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.querySelector('div').addEventListener('click', () => {
+                const content = item.querySelector('div:last-child');
+                const icon = item.querySelector('i');
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                icon.classList.toggle('fa-chevron-up');
+                icon.classList.toggle('fa-chevron-down');
+            });
+        });
+    </script>
+    
 </body>
 </html>
