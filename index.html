@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Методическое пособие по ИИ в образовании</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2A4D6D;
+            --secondary-color: #3AB795;
+            --accent-color: #FF6B6B;
+            --light-bg: #F8F9FA;
+            --text-color: #2D3436;
+            --gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background: var(--light-bg);
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 6rem 0 4rem;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            animation: slideIn 0.8s ease-out;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .sticky-nav ul {
+            display: flex;
+            gap: 2rem;
+            padding: 1.2rem 0;
+            justify-content: center;
+            margin: 0;
+            list-style: none;
+        }
+
+        .sticky-nav a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .subject-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .testimonials {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 2rem 0;
+        }
+
+        .testimonial-card {
+            min-width: 300px;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        .step-list {
+            counter-reset: step;
+            padding-left: 2rem;
+        }
+
+        .step-list li {
+            counter-increment: step;
+            margin: 1.5rem 0;
+            padding-left: 2.5rem;
+            position: relative;
+        }
+
+        .step-list li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: -0.2em;
+            background: var(--secondary-color);
+            color: white;
+            width: 1.8em;
+            height: 1.8em;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 15px;
+            margin: 1rem 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.9rem 1.8rem;
+            margin: 1rem 0;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(42, 77, 109, 0.2);
+        }
+        
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(58, 183, 149, 0.3);
+        }
+
+        .btn-accent {
+            background: var(--accent-color);
+        }
+
+        .btn-accent:hover {
+            background: #e05555;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .feature-box {
+            background: white;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 15px 15px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 4rem 0 3rem;
+                clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+            }
+            
+            .sticky-nav ul {
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+        }
+
+        main {
+            margin: 3rem auto;
+        }
+
+        footer {
+            margin-top: 6rem;
+            background: var(--primary-color);
+            padding: 4rem 0;
+            color: white;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 style="font-size: 2.8rem; margin-bottom: 1.5rem;">Методическое пособие по использованию ИИ в образовании</h1>
+            <p style="font-size: 1.2rem; opacity: 0.95;">Современные технологии для учителей, учеников и администрации</p>
+        </div>
+    </header>
+
+    <nav class="sticky-nav">
+        <div class="container">
+            <ul>
+                <li><a href="#intro"><i class="fas fa-home"></i> Введение</a></li>
+                <li><a href="theory.html"><i class="fas fa-book"></i> Теория</a></li>
+                <li><a href="practice.html"><i class="fas fa-tasks"></i> Практика</a></li>
+                <li><a href="teachers.html"><i class="fas fa-chalkboard-teacher"></i> Для учителей</a></li>
+                <li><a href="students.html"><i class="fas fa-user-graduate"></i> Для учеников</a></li>
+                <li><a href="#about"><i class="fas fa-info-circle"></i> О проекте</a></li>
+                <li><a href="#blog"><i class="fas fa-blog"></i> Блог</a></li>
+                <li><a href="#faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i> Контакты</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Блок Герой -->
+        <section class="hero" id="intro">
+            <h2 style="color: var(--primary-color);">Искусственный интеллект в образовании</h2>
+            <p>Откройте новые возможности преподавания и обучения с помощью передовых ИИ-технологий. Наше пособие поможет вам освоить современные инструменты и эффективно интегрировать их в учебный процесс.</p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="teachers.html" class="btn"><i class="fas fa-chalkboard-teacher"></i> Гид для учителей</a>
+                <a href="students.html" class="btn btn-accent"><i class="fas fa-user-graduate"></i> Гид для учеников</a>
+            </div>
+        </section>
+
+        <!-- Введение -->
+        <section id="intro">
+            <h2 style="color: var(--primary-color);">
+                <i class="fas fa-info-circle"></i> Введение в ИИ для образования
+            </h2>
+            <p>Искусственный интеллект радикально меняет подходы к обучению, создавая персонализированные траектории, автоматизируя рутинные задачи и открывая новые методы взаимодействия между учителями и учениками.</p>
+            <div class="feature-box">
+                <h3 style="color: var(--secondary-color);">Почему ИИ важен?</h3>
+                <p>Исследования показывают, что внедрение ИИ в образовательный процесс позволяет:</p>
+                <ul class="step-list">
+                    <li>Увеличить вовлеченность учащихся на 40%</li>
+                    <li>Сократить время проверки работ на 30%</li>
+                    <li>Повысить общие результаты обучения на 25%</li>
+                </ul>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <h3 style="color: var(--secondary-color);">Для учителей</h3>
+                    <ul>
+                        <li>Автоматическая проверка работ</li>
+                        <li>Генерация учебных материалов</li>
+                        <li>Аналитика успеваемости</li>
+                    </ul>
+                    <a href="teachers.html" class="btn btn-outline"><i class="fas fa-arrow-right"></i> Подробнее</a>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--secondary-color);">Для учеников</h3>
+                    <ul>
+                        <li>Персонализированное обучение</li>
+                        <li>Интерактивные задания</li>
+                        <li>Мгновенная обратная связь</li>
+                    </ul>
+                    <a href="students.html" class="btn btn-outline"><i class="fas fa-arrow-right"></i> Подробнее</a>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--secondary-color);">Для администрации</h3>
+                    <ul>
+                        <li>Анализ образовательных процессов</li>
+                        <li>Оптимизация расписания</li>
+                        <li>Прогнозирование успеваемости</li>
+                    </ul>
+                    <a href="theory.html#future" class="btn btn-outline"><i class="fas fa-arrow-right"></i> Подробнее</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ключевые ресурсы -->
+        <section id="resources">
+            <h2 style="color: var(--primary-color);">
+                <i class="fas fa-key"></i> Ключевые ресурсы
+            </h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3 style="color: var(--secondary-color);">Теоретические основы</h3>
+                    <p>Углубитесь в принципы работы ИИ и узнайте, как технологии меняют образовательную сферу.</p>
+                    <a href="theory.html" class="btn"><i class="fas fa-book-open"></i> Изучить теорию</a>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--secondary-color);">Практические задачи</h3>
+                    <p>Реальные примеры внедрения ИИ в школах с пошаговыми инструкциями и рекомендациями.</p>
+                    <a href="practice.html" class="btn"><i class="fas fa-laptop-code"></i> Смотреть задания</a>
+                </div>
+            </div>
+            <div class="feature-box">
+                <h3 style="color: var(--secondary-color);">Быстрый старт</h3>
+                <p>Попробуйте прямо сейчас:</p>
+                <ol class="step-list">
+                    <li>Используйте ChatGPT для создания тестовых вопросов</li>
+                    <li>Проверьте сочинения с помощью Grammarly</li>
+                    <li>Создайте интерактивные карточки в Quizlet</li>
+                </ol>
+                <a href="practice.html" class="btn btn-accent"><i class="fas fa-rocket"></i> Практическое руководство</a>
+            </div>
+        </section>
+
+        <!-- Блок "О проекте" -->
+        <section id="about">
+            <h2 style="color: var(--primary-color);">
+                <i class="fas fa-info-circle"></i> О проекте
+            </h2>
+            <p>Это методическое пособие разработано Бежаном Ильёй Викторовичем, учеником 10 класса школы №188 в Санкт-Петербурге. Цель проекта – помочь педагогам и ученикам освоить современные ИИ-технологии и улучшить качество образования.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <h3 style="color: var(--secondary-color);">Цели проекта</h3>
+                    <ul>
+                        <li>Обучить педагогов использованию ИИ в образовательном процессе</li>
+                        <li>Показать практические примеры внедрения технологий</li>
+                        <li>Сформировать базу ресурсов для самообразования</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--secondary-color);">Ключевые темы</h3>
+                    <ul>
+                        <li>Персонализация обучения</li>
+                        <li>Автоматизация проверки работ</li>
+                        <li>Интерактивные методы обучения</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    <!-- Блог -->
+<section id="blog">
+    <h2 style="color: var(--primary-color);">
+        <i class="fas fa-blog"></i> Блог и новости
+    </h2>
+    <p>Читайте последние статьи и обзоры о применении ИИ в образовании. Узнавайте о новых инструментах, методиках и успешных кейсах.</p>
+    <div class="card-grid">
+        <div class="card">
+            <h3 style="color: var(--secondary-color);">Новое в мире ИИ</h3>
+            <p>Ознакомьтесь с последними тенденциями и исследованиями в области искусственного интеллекта для образования.</p>
+            <a href="https://www.forbes.ru/tegi/iskusstvennyy-intellekt?page=2" class="btn"><i class="fas fa-newspaper"></i> Читать статью</a>
+        </div>
+        <div class="card">
+            <h3 style="color: var(--secondary-color);">Успешные примеры</h3>
+            <p>Рассмотрим реальные примеры внедрения ИИ-технологий в школах и вузах.</p>
+            <a href="https://bmstu.ru/" class="btn"><i class="fas fa-trophy"></i> Читать статью</a>
+        </div>
+        <div class="card">
+            <h3 style="color: var(--secondary-color);">Интервью с экспертами</h3>
+            <p>Мнение профессионалов о будущем ИИ в образовании и его влиянии на учебный процесс.</p>
+            <a href="https://d-economy.ru/analitic/vlijanie-ii-na-obrazovanie/" class="btn"><i class="fas fa-microphone-alt"></i> Читать статью</a>
+        </div>
+    </div>
+</section>
+        <!-- FAQ -->
+        <section id="faq">
+            <h2 style="color: var(--primary-color);">
+                <i class="fas fa-question-circle"></i> Часто задаваемые вопросы (FAQ)
+            </h2>
+            <div class="faq-item">
+                <div style="padding: 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                    <h4>Что такое ИИ в образовании?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div style="padding: 0 1.5rem 1.5rem;">
+                    <p>ИИ – это совокупность технологий, позволяющих автоматизировать процессы обучения, персонализировать образовательный процесс и анализировать успеваемость учеников.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div style="padding: 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                    <h4>Как начать использовать ИИ в школе?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div style="padding: 0 1.5rem 1.5rem;">
+                    <p>Начните с внедрения одного инструмента, например, Grammarly для проверки текстов или ChatGPT для генерации учебных материалов, и постепенно расширяйте функционал.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div style="padding: 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                    <h4>Безопасно ли использовать ИИ для оценки знаний?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div style="padding: 0 1.5rem 1.5rem;">
+                    <p>Использование ИИ может существенно повысить объективность оценки, однако важно сочетать его с традиционными методами контроля знаний.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <h3>Методическое пособие по ИИ в образовании</h3>
+            <p>Автор: Бежан Илья Викторович, 10 класс</p>
+
+            <div class="social-links">
+                <a href="https://vk.com/bezhan4" aria-label="VKontakte"><i class="fab fa-vk"></i></a>
+                <a href="mailto:ilabezan87@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>Школа №188, Санкт-Петербург | © 2024 Все права защищены</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.querySelector('div').addEventListener('click', () => {
+                const content = item.querySelector('div:last-child');
+                const icon = item.querySelector('i');
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                icon.classList.toggle('fa-chevron-up');
+                icon.classList.toggle('fa-chevron-down');
+            });
+        });
+    </script>
+</body>
+</html>
